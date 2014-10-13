@@ -1,0 +1,19 @@
+{% extends 'EzPublishCoreBundle::content_fields.html.twig' %}
+
+{% block owenhancedrelationlist_field %}
+    {% spaceless %}
+        {% if field.value.destinationContentIds|length > 0 %}
+            {% if field.value.destinationContentIds|length > 1 %}
+                <ul {{ block( 'field_attributes' ) }}>
+                    {% for contentId in field.value.destinationContentIds %}
+                        <li>
+                            {{ render( controller( "ez_content:viewContent", {'contentId': contentId, 'viewType': 'embed', 'noLayout': 1} ) ) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                {{ render( controller( "ez_content:viewContent", {'contentId': field.value.destinationContentIds[0], 'viewType': 'text', 'noLayout': 1} ) ) }}
+            {% endif %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
