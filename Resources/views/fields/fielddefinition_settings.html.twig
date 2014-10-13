@@ -1,0 +1,39 @@
+{% extends 'EzPublishCoreBundle::fielddefinition_settings.html.twig' %}
+
+{% block owenhancedrelationlist_settings %}
+<ul class="fielddef-settings {{ fielddefinition.fieldTypeIdentifier }}-settings">
+    <li class="selection-method">
+        <span>Selection method:</span>
+        {% if settings.selectionMethod == 0 %}
+            Browse
+        {% elseif settings.selectionMethod == 1 %}
+            Drop-down list
+        {% elseif settings.selectionMethod == 2 %}
+            List with radio buttons
+        {% elseif settings.selectionMethod == 3 %}
+            List with checkboxes
+        {% elseif settings.selectionMethod == 4 %}
+            Multiple selection list
+        {% elseif settings.selectionMethod == 5 %}
+            Template based, multi
+        {% else %}
+            Template based, single
+        {% endif %}
+    </li>
+    <li class="allowed-content-types">
+        <span>Allowed content types:</span>
+        {% if settings.selectionContentTypes %}
+            {# TODO display content type name #}
+            <ul>
+            {% for typeIdentifier in settings.selectionContentTypes %}
+                <li>{{ typeIdentifier }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <em>Any</em>
+        {% endif %}
+    </li>
+    {% set rootLocationId = settings.selectionDefaultLocation %}
+    {{ block( 'settings_selectionroot' ) }}
+</ul>
+{% endblock %}
