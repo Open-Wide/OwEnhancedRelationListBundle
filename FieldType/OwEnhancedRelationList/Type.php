@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File containing the User class
  *
@@ -17,29 +18,28 @@ use eZ\Publish\API\Repository\Values\Content\Relation;
 use eZ\Publish\SPI\FieldType\Value as SPIValue;
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 
+class Type extends FieldType {
 
-class Type extends FieldType
-{
     /**
      * @todo Consider to add all 6 selection options
      *
      */
     const SELECTION_BROWSE = 0,
-      SELECTION_DROPDOWN = 1;
+        SELECTION_DROPDOWN = 1;
 
     protected $settingsSchema = array(
-      'selectionMethod' => array(
-        'type' => 'int',
-        'default' => self::SELECTION_BROWSE,
-      ),
-      'selectionDefaultLocation' => array(
-        'type' => 'string',
-        'default' => null,
-      ),
-      'selectionContentTypes' => array(
-        'type' => 'array',
-        'default' => array(),
-      ),
+        'selectionMethod' => array(
+            'type' => 'int',
+            'default' => self::SELECTION_BROWSE,
+        ),
+        'selectionDefaultLocation' => array(
+            'type' => 'string',
+            'default' => null,
+        ),
+        'selectionContentTypes' => array(
+            'type' => 'array',
+            'default' => array(),
+        ),
     );
 
     /**
@@ -49,61 +49,46 @@ class Type extends FieldType
      *
      * @return \eZ\Publish\SPI\FieldType\ValidationError[]
      */
-    public function validateFieldSettings( $fieldSettings )
-    {
+    public function validateFieldSettings( $fieldSettings ) {
         $validationErrors = array();
 
-        foreach ( $fieldSettings as $name => $value )
-        {
-            if ( !isset( $this->settingsSchema[$name] ) )
-            {
+        foreach ( $fieldSettings as $name => $value ) {
+            if ( !isset( $this->settingsSchema[$name] ) ) {
                 $validationErrors[] = new ValidationError(
-                  "Setting '%setting%' is unknown",
-                  null,
-                  array(
+                    "Setting '%setting%' is unknown", null, array(
                     "setting" => $name
-                  )
+                    )
                 );
                 continue;
             }
 
-            switch ( $name )
-            {
+            switch ( $name ) {
                 case "selectionMethod":
-                    if ( $value !== self::SELECTION_BROWSE && $value !== self::SELECTION_DROPDOWN )
-                    {
+                    if ( $value !== self::SELECTION_BROWSE && $value !== self::SELECTION_DROPDOWN ) {
                         $validationErrors[] = new ValidationError(
-                          "Setting '%setting%' must be either %selection_browse% or %selection_dropdown%",
-                          null,
-                          array(
+                            "Setting '%setting%' must be either %selection_browse% or %selection_dropdown%", null, array(
                             "setting" => $name,
                             "selection_browse" => self::SELECTION_BROWSE,
                             "selection_dropdown" => self::SELECTION_DROPDOWN
-                          )
+                            )
                         );
                     }
                     break;
                 case "selectionDefaultLocation":
-                    if ( !is_int( $value ) && !is_string( $value ) && $value !== null )
-                    {
+                    if ( !is_int( $value ) && !is_string( $value ) && $value !== null ) {
                         $validationErrors[] = new ValidationError(
-                          "Setting '%setting%' value must be of either null, string or integer",
-                          null,
-                          array(
+                            "Setting '%setting%' value must be of either null, string or integer", null, array(
                             "setting" => $name
-                          )
+                            )
                         );
                     }
                     break;
                 case "selectionContentTypes":
-                    if ( !is_array( $value ) )
-                    {
+                    if ( !is_array( $value ) ) {
                         $validationErrors[] = new ValidationError(
-                          "Setting '%setting%' value must be of array type",
-                          null,
-                          array(
+                            "Setting '%setting%' value must be of array type", null, array(
                             "setting" => $name
-                          )
+                            )
                         );
                     }
                     break;
@@ -118,8 +103,7 @@ class Type extends FieldType
      *
      * @return string
      */
-    public function getFieldTypeIdentifier()
-    {
+    public function getFieldTypeIdentifier() {
         return "ezobjectrelationlist";
     }
 
@@ -133,8 +117,7 @@ class Type extends FieldType
      *
      * @return string
      */
-    public function getName( SPIValue $value )
-    {
+    public function getName( SPIValue $value ) {
         throw new \RuntimeException( '@todo Implement this method' );
     }
 
@@ -144,8 +127,7 @@ class Type extends FieldType
      *
      * @return \eZ\Publish\Core\FieldType\RelationList\Value
      */
-    public function getEmptyValue()
-    {
+    public function getEmptyValue() {
         return new Value();
     }
 
@@ -156,21 +138,17 @@ class Type extends FieldType
      *
      * @return \eZ\Publish\Core\FieldType\RelationList\Value The potentially converted and structurally plausible value.
      */
-    protected function createValueFromInput( $inputValue )
-    {
+    protected function createValueFromInput( $inputValue ) {
         // ContentInfo
-        if ( $inputValue instanceof ContentInfo )
-        {
+        if ( $inputValue instanceof ContentInfo ) {
             $inputValue = new Value( array( $inputValue->id ) );
         }
         // content id
-        else if ( is_integer( $inputValue ) || is_string( $inputValue ) )
-        {
+        else if ( is_integer( $inputValue ) || is_string( $inputValue ) ) {
             $inputValue = new Value( array( $inputValue ) );
         }
         // content id's
-        else if ( is_array( $inputValue ) )
-        {
+        else if ( is_array( $inputValue ) ) {
             $inputValue = new Value( $inputValue );
         }
 
@@ -186,25 +164,17 @@ class Type extends FieldType
      *
      * @return void
      */
-    protected function checkValueStructure( BaseValue $value )
-    {
-        if ( !is_array( $value->destinationContentIds ) )
-        {
+    protected function checkValueStructure( BaseValue $value ) {
+        if ( !is_array( $value->destinationContentIds ) ) {
             throw new InvalidArgumentType(
-              "\$value->destinationContentIds",
-              'array',
-              $value->destinationContentIds
+            "\$value->destinationContentIds", 'array', $value->destinationContentIds
             );
         }
 
-        foreach ( $value->destinationContentIds as $key => $destinationContentId )
-        {
-            if ( !is_integer( $destinationContentId ) && !is_string( $destinationContentId ) )
-            {
+        foreach ( $value->destinationContentIds as $key => $destinationContentId ) {
+            if ( !is_integer( $destinationContentId ) && !is_string( $destinationContentId ) ) {
                 throw new InvalidArgumentType(
-                  "\$value->destinationContentIds[$key]",
-                  'string|int',
-                  $destinationContentId
+                "\$value->destinationContentIds[$key]", 'string|int', $destinationContentId
                 );
             }
         }
@@ -218,8 +188,7 @@ class Type extends FieldType
      *
      * @return array
      */
-    protected function getSortInfo( BaseValue $value )
-    {
+    protected function getSortInfo( BaseValue $value ) {
         return false;
     }
 
@@ -230,9 +199,9 @@ class Type extends FieldType
      *
      * @return \eZ\Publish\Core\FieldType\RelationList\Value $value
      */
-    public function fromHash( $hash )
-    {
-        return new Value( $hash['destinationContentIds'] );
+    public function fromHash( $hash ) {
+        $hash = array_merge( array( 'destinationContentIds' => array(), 'destinationLocationIds' => array() ), $hash );
+        return new Value( $hash['destinationContentIds'], $hash['destinationLocationIds'] );
     }
 
     /**
@@ -242,9 +211,11 @@ class Type extends FieldType
      *
      * @return mixed
      */
-    public function toHash( SPIValue $value )
-    {
-        return array( 'destinationContentIds' => $value->destinationContentIds );
+    public function toHash( SPIValue $value ) {
+        return array(
+            'destinationContentIds' => $value->destinationContentIds,
+            'destinationLocationIds' => $value->destinationLocationIds
+        );
     }
 
     /**
@@ -252,8 +223,7 @@ class Type extends FieldType
      *
      * @return boolean
      */
-    public function isSearchable()
-    {
+    public function isSearchable() {
         return true;
     }
 
@@ -282,11 +252,11 @@ class Type extends FieldType
      *  )
      * </code>
      */
-    public function getRelations( SPIValue $value )
-    {
+    public function getRelations( SPIValue $value ) {
         /** @var \eZ\Publish\Core\FieldType\RelationList\Value $value */
         return array(
-          Relation::FIELD => $value->destinationContentIds
+            Relation::FIELD => $value->destinationContentIds
         );
     }
+
 }
