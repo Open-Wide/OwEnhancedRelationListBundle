@@ -96,7 +96,7 @@ class OwEnhancedRelationList implements Converter {
         asort( $priorityByLocationId, SORT_NUMERIC );
 
         $fieldValue->data = array(
-            'destinationContentIds' => array_keys( $priorityByLocationId ),
+            'destinationContentIds' => array_keys( $priorityByContentId ),
             'destinationLocationIds' => array_keys( $priorityByLocationId )
             );
     }
