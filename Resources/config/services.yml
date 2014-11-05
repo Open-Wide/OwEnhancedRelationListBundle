@@ -1,6 +1,10 @@
 parameters:
     ezpublish.fieldType.owenhancedrelationlist.class: 'Ow\Bundle\OwEnhancedRelationListBundle\FieldType\OwEnhancedRelationList\Type'
     ezpublish.fieldType.owenhancedrelationlist.converter.class: 'Ow\Bundle\OwEnhancedRelationListBundle\Persistence\Legacy\Content\FieldValue\Converter\OwEnhancedRelationList'
+#twig extension
+    owenhancedrelationlist.twig.extension.class: 'Ow\Bundle\OwEnhancedRelationListBundle\Twig\OwEnhancedRelationListExtension'
+#helpers
+    owenhancedrelationlist.common_helper.class: 'Ow\Bundle\OwEnhancedRelationListBundle\Helper\CommonHelper'
 
 services:
     ezpublish.fieldType.owenhancedrelationlist:
@@ -14,3 +18,15 @@ services:
         arguments: [@ezpublish.api.storage_engine.legacy.dbhandler, @service_container]
         tags:
             - {name: ezpublish.storageEngine.legacy.converter, alias: owenhancedrelationlist}
+
+#twig extension
+    owenhancedrelationlist.twig.extension:
+        class: %owenhancedrelationlist.twig.extension.class%
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
+
+#helpers
+    owenhancedrelationlist.common_helper:
+        class: %owenhancedrelationlist.common_helper.class%
+        arguments: [@ezpublish.api.repository]
