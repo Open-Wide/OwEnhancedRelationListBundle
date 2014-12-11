@@ -30,3 +30,5 @@ services:
     owenhancedrelationlist.common_helper:
         class: %owenhancedrelationlist.common_helper.class%
         arguments: [@ezpublish.api.repository]
+        calls:
+            - [ setContainer,[ @service_container ] ]
