@@ -28,7 +28,7 @@ class CommonHelper extends ContainerAware {
     public function getFieldValue( $content, $attributeName, $localeEz = '' ) {
         $locationService = $this->repository->getLocationService();
         $contentService = $this->repository->getContentService();
-
+        // TODO : passer par le service de traduction d'eZ
         if (!$localeEz) {
             $localeConverter = $this->container->get('ezpublish.locale.converter');
             $localeEz = $localeConverter->convertToEz($this->container->get('request')->getLocale());
