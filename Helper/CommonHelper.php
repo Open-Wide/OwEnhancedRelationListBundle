@@ -2,8 +2,9 @@
 
 namespace Ow\Bundle\OwEnhancedRelationListBundle\Helper;
 
-use eZ\Publish\API\Repository\Repository;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\API\Repository\Values\Content\Field;
 
 /**
  * Helper class for building many things :-)
@@ -15,7 +16,7 @@ class CommonHelper extends ContainerAware {
      */
     private $repository;
 
-    public function __construct( Repository $repository ) {
+    public function __construct(Repository $repository) {
         $this->repository = $repository;
     }
 
@@ -25,34 +26,27 @@ class CommonHelper extends ContainerAware {
      * @param $localeEz string language
      * @return owEnhancedRelationList object
      */
-    public function getFieldValue( $content, $attributeName, $localeEz = '' ) {
-        $locationService = $this->repository->getLocationService();
-        $contentService = $this->repository->getContentService();
-        // TODO : passer par le service de traduction d'eZ
-        if (!$localeEz) {
-            $localeConverter = $this->container->get('ezpublish.locale.converter');
-            $localeEz = $localeConverter->convertToEz($this->container->get('request')->getLocale());
-        }
-
-        $owEnhancedRelationListFieldValue = $content->getFieldValue($attributeName, $localeEz);
-
-        if ($owEnhancedRelationListFieldValue) {
-            foreach ($owEnhancedRelationListFieldValue->destinationLocationIds as $k => $locationId) {
+    public function getFieldValue($content, $attributeName, $localeEz = '') {
+        $translationHelper = $this->container->get('ezpublish.translation_helper');
+        $field = $translationHelper->getTranslatedField($content, $attributeName);
+        if ($field instanceof Field) {
+            $value = $field->value;
+            $locationService = $this->repository->getLocationService();
+            foreach ($value->destinationLocationIds as $k => $locationId) {
                 $relationLocation = $locationService->loadLocation($locationId);
-                $relationContent = $contentService->loadContentByContentInfo($relationLocation->getContentInfo());
-
-                if ($relationLocation->hidden
-                     || $relationLocation->invisible
-                     || (!in_array($localeEz, $relationContent->getVersionInfo()->languageCodes) && !$relationLocation->getContentInfo()->alwaysAvailable)
-                ) {
-                    // Entry not available => don't return this
-                    unset($owEnhancedRelationListFieldValue->destinationContentIds[$k]);
-                    unset($owEnhancedRelationListFieldValue->destinationLocationIds[$k]);
+                if ($relationLocation) {
+                    if ($relationLocation->invisible) {
+                        // Entry not available => don't return this
+                        unset($value->destinationContentIds[$k]);
+                        unset($value->destinationLocationIds[$k]);
+                    }
+                } else {
+                    unset($value->destinationContentIds[$k]);
+                    unset($value->destinationLocationIds[$k]);
                 }
             }
+            return $value;
         }
-
-        return $owEnhancedRelationListFieldValue;
     }
 
 }
