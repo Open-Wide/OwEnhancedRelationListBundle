@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenWide\Publish\EnhancedRelationListBundle\Helper;
+namespace OpenWide\Publish\EnhancedRelationListBundle\Service;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use eZ\Publish\API\Repository\Repository;
@@ -9,7 +9,7 @@ use eZ\Publish\API\Repository\Values\Content\Field;
 /**
  * Helper class for building many things :-)
  */
-class CommonHelper extends ContainerAware {
+class FieldValue extends ContainerAware {
 
     /**
      * @var \eZ\Publish\API\Repository\Repository
