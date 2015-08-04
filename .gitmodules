@@ -1,0 +1,3 @@
+[submodule "ezpublish_legacy/owenhancedrelationlist"]
+	path = ezpublish_legacy/owenhancedrelationlist
+	url = https://github.com/Open-Wide/OwEnhancedRelationList.git
