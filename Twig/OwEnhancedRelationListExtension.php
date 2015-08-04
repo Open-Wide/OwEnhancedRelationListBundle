@@ -24,8 +24,8 @@ class OwEnhancedRelationListExtension extends \Twig_Extension {
      * @return owEnhancedRelationList object
      */
     public function getFieldValue($content, $field) {
-        $commonHelper = $this->container->get( 'owenhancedrelationlist.common_helper' );
-        return $commonHelper->getFieldValue( $content, $field );
+        $fieldValueHelper = $this->container->get( 'owenhancedrelationlist.field_value' );
+        return $fieldValueHelper->getFieldValue( $content, $field );
     }
 
     public function getName() {

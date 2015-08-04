@@ -53,6 +53,6 @@ PHP
 .. code-block:: php
 
     // $container is an instance of "service_container"
-    $commonHelper = $container->get( 'owenhancedrelationlist.common_helper' );
-    $values = $commonHelper->getFieldValue( $content, "my_field" );
+    $fieldValueHelper = $container->get( 'owenhancedrelationlist.field_value' );
+    $values = $fieldValueHelper->getFieldValue( $content, "my_field" );
 

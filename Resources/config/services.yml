@@ -1,10 +1,8 @@
 parameters:
     ezpublish.fieldType.owenhancedrelationlist.class: 'OpenWide\Publish\EnhancedRelationListBundle\FieldType\OwEnhancedRelationList\Type'
     ezpublish.fieldType.owenhancedrelationlist.converter.class: 'OpenWide\Publish\EnhancedRelationListBundle\Persistence\Legacy\Content\FieldValue\Converter\OwEnhancedRelationList'
-#twig extension
     owenhancedrelationlist.twig.extension.class: 'OpenWide\Publish\EnhancedRelationListBundle\Twig\OwEnhancedRelationListExtension'
-#helpers
-    owenhancedrelationlist.common_helper.class: 'OpenWide\Publish\EnhancedRelationListBundle\Helper\CommonHelper'
+    owenhancedrelationlist.field_value.class: 'OpenWide\Publish\EnhancedRelationListBundle\Service\FieldValue'
 
 services:
     ezpublish.fieldType.owenhancedrelationlist:
@@ -27,8 +25,8 @@ services:
             - { name: twig.extension }
 
 #helpers
-    owenhancedrelationlist.common_helper:
-        class: %owenhancedrelationlist.common_helper.class%
+    owenhancedrelationlist.field_value:
+        class: %owenhancedrelationlist.field_value.class%
         arguments: [@ezpublish.api.repository]
         calls:
             - [ setContainer,[ @service_container ] ]
