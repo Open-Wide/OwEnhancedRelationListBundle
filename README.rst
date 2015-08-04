@@ -30,7 +30,7 @@ At first, you have to enable the bundle :
     // in AppKernel::registerBundles()
     $bundles = array(
         // ...
-        new OpenWide\Publish\EnhancedRelationListBundle\OwEnhancedRelationListBundle(),
+        new OpenWide\Publish\EnhancedRelationListBundle\OpenWidePublishEnhancedRelationListBundle(),
         // ...
     );
 
