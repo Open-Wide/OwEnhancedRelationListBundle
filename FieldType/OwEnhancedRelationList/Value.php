@@ -1,6 +1,6 @@
 <?php
 
-namespace Ow\Bundle\OwEnhancedRelationListBundle\FieldType\OwEnhancedRelationList;
+namespace OpenWide\Publish\EnhancedRelationListBundle\FieldType\OwEnhancedRelationList;
 
 use eZ\Publish\Core\FieldType\Value as BaseValue;
 

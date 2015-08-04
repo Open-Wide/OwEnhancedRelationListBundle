@@ -1,10 +1,10 @@
 parameters:
-    ezpublish.fieldType.owenhancedrelationlist.class: 'Ow\Bundle\OwEnhancedRelationListBundle\FieldType\OwEnhancedRelationList\Type'
-    ezpublish.fieldType.owenhancedrelationlist.converter.class: 'Ow\Bundle\OwEnhancedRelationListBundle\Persistence\Legacy\Content\FieldValue\Converter\OwEnhancedRelationList'
+    ezpublish.fieldType.owenhancedrelationlist.class: 'OpenWide\Publish\EnhancedRelationListBundle\FieldType\OwEnhancedRelationList\Type'
+    ezpublish.fieldType.owenhancedrelationlist.converter.class: 'OpenWide\Publish\EnhancedRelationListBundle\Persistence\Legacy\Content\FieldValue\Converter\OwEnhancedRelationList'
 #twig extension
-    owenhancedrelationlist.twig.extension.class: 'Ow\Bundle\OwEnhancedRelationListBundle\Twig\OwEnhancedRelationListExtension'
+    owenhancedrelationlist.twig.extension.class: 'OpenWide\Publish\EnhancedRelationListBundle\Twig\OwEnhancedRelationListExtension'
 #helpers
-    owenhancedrelationlist.common_helper.class: 'Ow\Bundle\OwEnhancedRelationListBundle\Helper\CommonHelper'
+    owenhancedrelationlist.common_helper.class: 'OpenWide\Publish\EnhancedRelationListBundle\Helper\CommonHelper'
 
 services:
     ezpublish.fieldType.owenhancedrelationlist:

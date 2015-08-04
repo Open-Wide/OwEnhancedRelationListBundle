@@ -1,6 +1,6 @@
 <?php
 
-namespace Ow\Bundle\OwEnhancedRelationListBundle\Persistence\Legacy\Content\FieldValue\Converter;
+namespace OpenWide\Publish\EnhancedRelationListBundle\Persistence\Legacy\Content\FieldValue\Converter;
 
 use eZ\Publish\Core\Persistence\Legacy\Content\FieldValue\Converter;
 use eZ\Publish\Core\Persistence\Legacy\Content\StorageFieldValue;

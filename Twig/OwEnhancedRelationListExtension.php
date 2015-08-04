@@ -1,6 +1,6 @@
 <?php
 
-namespace Ow\Bundle\OwEnhancedRelationListBundle\Twig;
+namespace OpenWide\Publish\EnhancedRelationListBundle\Twig;
 
 class OwEnhancedRelationListExtension extends \Twig_Extension {
 

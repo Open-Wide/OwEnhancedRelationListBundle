@@ -1,6 +1,6 @@
 <?php
 
-namespace Ow\Bundle\OwEnhancedRelationListBundle\Helper;
+namespace OpenWide\Publish\EnhancedRelationListBundle\Helper;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use eZ\Publish\API\Repository\Repository;

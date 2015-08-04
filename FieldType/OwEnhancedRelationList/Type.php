@@ -8,7 +8,7 @@
  * @version 5.2.0
  */
 
-namespace Ow\Bundle\OwEnhancedRelationListBundle\FieldType\OwEnhancedRelationList;
+namespace OpenWide\Publish\EnhancedRelationListBundle\FieldType\OwEnhancedRelationList;
 
 use eZ\Publish\Core\FieldType\FieldType;
 use eZ\Publish\Core\FieldType\ValidationError;
