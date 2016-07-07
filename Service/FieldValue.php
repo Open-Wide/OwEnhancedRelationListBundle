@@ -33,9 +33,10 @@ class FieldValue extends ContainerAware {
             $value = $field->value;
             $locationService = $this->repository->getLocationService();
             foreach ($value->destinationLocationIds as $k => $locationId) {
-                $relationLocation = $locationService->loadLocation($locationId);
+                
+                $relationLocation = $locationId ? $locationService->loadLocation($locationId) : null;
                 if ($relationLocation) {
-                    if ($relationLocation->invisible) {
+                    if ($relationLocation->invisible || $locationId == "") {
                         // Entry not available => don't return this
                         unset($value->destinationContentIds[$k]);
                         unset($value->destinationLocationIds[$k]);
